@@ -1,18 +1,21 @@
 class TasksController < ApplicationController
-    def index
-        @tasks = Task.all
-    end
+  def index
+    @tasks = Task.all
+    @task = Task.new
+  end
 
-    def new
-        @task = Task.new
-    end
+  def create
+    task = Task.new(task_params)
+    task.save
 
-    def create
-    end
+    redirect_to root_path
+  end
 
-    def dene
-    end
+  def done
+    
+  end
 
-    def destroy
-    end
+  private def task_params
+    params.require(:task).permit(:title, :deadline)
+   end
 end
