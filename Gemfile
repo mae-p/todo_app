@@ -25,5 +25,9 @@ group :test do
   gem "webdrivers",         "5.0.0"
 end
 
+group :development, :test do
+  gem 'pry-rails'
+end
+
 # Windows ではタイムゾーン情報用の tzinfo-data gem を含める必要があります
 # gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
