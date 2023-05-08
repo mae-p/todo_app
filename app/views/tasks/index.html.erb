@@ -9,16 +9,21 @@
   <%= f.submit "作成" %>
 <% end %>
 
-<h1>タスク一覧<h1>
+<h1>未完了</h1>
+<div class='task-show'>
+  <% @tasks.each do |t| %>
+    <h3><%= t.title %></h3>
+    <p>期限:<%= t.deadline %><p>
 
-<% @tasks.each do |t| %>
-  <h3><%= t.title %></h3>
-  <p>期限:<%= t.deadline %><p>
-  <%= t.status %>
-
-  <%= form_tag done_task_path(t), method: :post do %>
-    <%= submit_tag "完了" %>
+    <%= form_tag done_task_path(t), method: :post do %>
+      <%= submit_tag "完了" %>
+    <% end %> 
   <% end %>
-<% end %>
+
+
+<h1>完了</h1>
+  <% @tasks_done.each do |t| %>
+    <h3><%= t.title %></h3>
+    <p>完了日:<%= t.done_at %><p>
 
 
