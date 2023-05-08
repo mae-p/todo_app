@@ -23,7 +23,7 @@
 <h1>完了</h1>
   <% @tasks_done.each do |t| %>
     <h3><%= t.title %></h3>
-    <p>完了日:<%= t.done_at %><p>
+    <p>完了日:<%= t.done_at.strftime('%Y-%m-%d') %><p>
   <% end %>
 
 

@@ -1,8 +1,8 @@
 class TasksController < ApplicationController
   def index
     @task = Task.new
-    @tasks = Task.where(status: :active)
-    @tasks_done = Task.where(status: :done).order(:time)
+    @tasks = Task.where(done_at:nil)
+    @tasks_done = Task.where.not(done_at:nil).order(:time)
   end
 
   def create
@@ -14,8 +14,7 @@ class TasksController < ApplicationController
   def done
     @today = Date.today
     task = Task.find(params[:id])
-    task.done!
-    task.update(done_at: @today )
+    task.update(done_at: @today)
     redirect_to root_path
   end
 
