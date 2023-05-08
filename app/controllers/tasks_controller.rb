@@ -12,7 +12,10 @@ class TasksController < ApplicationController
   end
 
   def done
-    
+    task = Task.find(params[:id])
+    task.done!
+
+    redirect_to root_path
   end
 
   private def task_params
