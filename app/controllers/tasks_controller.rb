@@ -13,6 +13,7 @@ class TasksController < ApplicationController
       redirect_to root_path
     else
       flash[:danger] = '項目を入力してください'
+      redirect_to root_path
     end
   end
 
