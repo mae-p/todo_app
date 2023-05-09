@@ -10,10 +10,10 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     if @task.save
       flash[:success] = '登録が成功しました'
-      redirect_to root_path
+      redirect_to root_path, status: :
     else
       flash[:danger] = '項目を入力してください'
-      redirect_to root_path
+      redirect_to root_path, status: :unprocessable_entity
     end
   end
 
