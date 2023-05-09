@@ -19,8 +19,8 @@ class TasksController < ApplicationController
 
   def done
     @today = Date.today
-    @task = Task.find(params[:id])
-    @task.update(done_at: @today)
+    task = Task.find(params[:id])
+    task.update(done_at: @today)
     redirect_to root_path
   end
 
