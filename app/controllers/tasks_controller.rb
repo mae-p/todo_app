@@ -7,8 +7,8 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
-    if @task.save
+    task = Task.new(task_params)
+    if task.save
       flash[:success] = '登録が成功しました'
       redirect_to root_path
     else
