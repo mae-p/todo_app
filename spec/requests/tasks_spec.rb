@@ -30,5 +30,12 @@ RSpec.describe "TasksController", type: :request do
       end
     end
   end
+
+  describe 'POST #done' do
+    it "update done_at" do
+        post done_task_path, params: { task_done: attributes_for(:task, :done) }
+        expect(task.done_at).not_to eq nil
+    end
+  end
 end
 
