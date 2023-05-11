@@ -21,6 +21,7 @@ class TasksController < ApplicationController
     @today = Date.today
     task = Task.find(params[:id])
     task.update(done_at: @today)
+    flash[:success] = 'タスク完了！おめでとう！'
     redirect_to root_path
   end
 
