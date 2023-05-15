@@ -17,7 +17,7 @@
       <% @tasks.each do |t| %>
         <% if (t.deadline - @today).to_i > 0 %>
           <h3><%= t.title %></h3>
-          <p>優先度:<%= t.priority %>
+          <p>優先度:<%= t.priority %><p>
           <p>期限:<%= t.deadline %><p>
           <p>残り:<%= (t.deadline - @today).to_i %>日<p>
           <%= form_tag done_task_path(t), method: :post do %>
@@ -30,7 +30,7 @@
 
         <% elsif (t.deadline - @today).to_i == 0 %>
           <h3><%= t.title %></h3>
-          <p>優先度:<%= t.priority %>
+          <p>優先度:<%= t.priority %><p>
           <p>期限:<%= t.deadline %><p>
           <p>今日までです！頑張りましょう！<p>
           <%= form_tag done_task_path(t), method: :post do %>
@@ -43,7 +43,7 @@
 
         <% else %>
           <h3><%= t.title %></h3>
-          <p>優先度:<%= t.priority %>
+          <p>優先度:<%= t.priority %><p>
           <p>期限:<%= t.deadline %><p>
           <p>期限が超過しています。優先度を上げましょう！<p>
           <%= form_tag done_task_path(t), method: :post do %>

@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   def index
     @task = Task.new
-    @tasks = Task.where(done_at:nil).order(:deadline)
+    @tasks = Task.where(done_at:nil).order(:priority)
     @tasks_done = Task.where.not(done_at:nil)
     @today = Date.today
   end
