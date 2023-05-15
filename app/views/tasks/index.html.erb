@@ -20,10 +20,11 @@
           <%= form_tag done_task_path(t), method: :post do %>
             <%= submit_tag "完了" %>
           <% end %>
-          <%= form_tag task_path(t), method: :delete,
-                data: { turbo_confirm: "削除しますか?" } do %>
+          <%= form_tag task_path(t), method: :delete, data: { confirm: 'Are you sure?' } do %>
             <%= submit_tag "削除" %>
           <% end %>
+
+          <%= link_to "削除aaa", task_path(t), method: :delete, data: { turbo_confirm: 'Are you sure?' }%>
 
         <% elsif (t.deadline - @today).to_i == 0 %>
           <h3><%= t.title %></h3>
@@ -32,9 +33,8 @@
           <%= form_tag done_task_path(t), method: :post do %>
             <%= submit_tag "完了" %>
           <% end %>
-          <%= form_tag task_path(t), method: :delete,
-            data: { turbo_confirm: "削除しますか?" } do %>
-            <%= submit_tag "削除" %>
+          <%= form_tag task_path(t), method: :delete do %>
+            <%= submit_tag "削除", data: { turbo_confirm: 'Are you sure?' } %>
           <% end %>
 
         <% else %>
@@ -44,9 +44,8 @@
           <%= form_tag done_task_path(t), method: :post do %>
             <%= submit_tag "完了" %>
           <% end %>
-          <%= form_tag task_path(t), method: :delete,
-            data: { turbo_confirm: "削除しますか?" } do %>
-            <%= submit_tag "削除" %>
+          <%= form_tag task_path(t), method: :delete do %>
+            <%= submit_tag "削除", data: { turbo_confirm: 'Are you sure?' } %>
           <% end %>
         <% end %>
       <% end %>
@@ -57,10 +56,9 @@
       <% @tasks_done.each do |t| %>
         <h3><%= t.title %></h3>
         <p>完了日:<%= t.done_at.strftime('%Y-%m-%d') %><p>
-        <%= form_tag task_path(t), method: :delete,
-          data: { turbo_confirm: "削除しますか?" } do %>
-          <%= submit_tag "削除" %>
-        <% end %>
+        <%= form_tag task_path(t), method: :delete do %>
+            <%= submit_tag "削除", data: { turbo_confirm: 'Are you sure?' } %>
+          <% end %>
       <% end %>
   </div>
 </div>
