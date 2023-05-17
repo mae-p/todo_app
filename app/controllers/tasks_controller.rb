@@ -7,12 +7,12 @@ class TasksController < ApplicationController
   end
 
   def create
-    task = Task.new(task_params)
-    if task.save
+    @task = Task.new(task_params)
+    if @task.save
       flash[:success] = '登録が成功しました'
       redirect_to root_path
     else
-      flash[:danger] = "登録に失敗しました<br>・#{task.errors.full_messages.join('<br>・')}"
+      flash[:danger] = '項目を入力してください'
       redirect_to root_path
     end
   end
