@@ -1,8 +1,8 @@
 class TasksController < ApplicationController
   def index
     @task = Task.new
-    @tasks = Task.where(done_at:nil).order(:priority)
-    @tasks_done = Task.where.not(done_at:nil)
+    @not_done_tasks = Task.where(done_at: nil).order(:priority)
+    @done_tasks = Task.where.not(done_at: nil).order(:priority)
     @today = Date.today
   end
 

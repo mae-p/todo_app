@@ -4,3 +4,4 @@ ja:
       task:
         title: タスク
         deadline: 期限
+        priority: 優先度
