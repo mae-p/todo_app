@@ -18,9 +18,8 @@ class TasksController < ApplicationController
   end
 
   def done
-    today = Date.today
     task = Task.find(params[:id])
-    if task.update(done_at: today)
+    if task.update(done_at: Time.zone.now)
       flash[:success] = 'タスク完了！おめでとう！'
       redirect_to root_path
     else
