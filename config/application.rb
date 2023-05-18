@@ -10,9 +10,13 @@ module TodoApp
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
+    config.paths.add 'lib', eager_load: true
 
     # デフォルトのロケールを:en以外に変更する
     config.i18n.default_locale = :ja
+    
+    config.time_zone = 'Tokyo'
+    config.active_record.default_timezone = :local
 
     # I18nライブラリに訳文の探索場所を指示する
     config.i18n.load_path += Dir[Rails.root.join('config/locales/**/*.yml').to_s]

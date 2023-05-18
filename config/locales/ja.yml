@@ -5,3 +5,9 @@ ja:
         title: タスク
         deadline: 期限
         priority: 優先度
+  enums:
+    task:
+      priority:
+        high: 高
+        middle: 中
+        low: 低
