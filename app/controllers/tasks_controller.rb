@@ -20,8 +20,13 @@ class TasksController < ApplicationController
   def done
     today = Date.today
     task = Task.find(params[:id])
-    task.update(done_at: today)
-    redirect_to root_path
+    if task.update(done_at: today)
+      flash[:success] = 'タスク完了！おめでとう！'
+      redirect_to root_path
+    else
+      flash[:danger] = "失敗しました"
+      redirect_to root_path
+    end
   end
 
   def destroy
