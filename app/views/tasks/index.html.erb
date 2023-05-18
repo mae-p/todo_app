@@ -9,39 +9,58 @@
   <%= f.submit "作成" %>
 <% end %>
 
-<h1>未完了</h1>
-  <% @tasks.each do |t| %>
-    <% if (t.deadline - @today).to_i > 0 %>
-      <h3><%= t.title %></h3>
-      <p>期限:<%= t.deadline %><p>
-      <p>残り:<%= (t.deadline - @today).to_i %>日<p>
-      <%= form_tag done_task_path(t), method: :post do %>
-        <%= submit_tag "完了" %>
+<div class=task-container>
+  <div class="item"%>
+    <h1>未完了</h1>
+      <% @tasks.each do |t| %>
+        <% if (t.deadline - @today).to_i > 0 %>
+          <h3><%= t.title %></h3>
+          <p>期限:<%= t.deadline %><p>
+          <p>残り:<%= (t.deadline - @today).to_i %>日<p>
+          <%= form_tag done_task_path(t), method: :post do %>
+            <%= submit_tag "完了" %>
+          <% end %>
+          <%= form_tag task_path(t), method: :delete,
+                data: { turbo_confirm: "削除しますか?" } do %>
+            <%= submit_tag "削除" %>
+          <% end %>
+
+        <% elsif (t.deadline - @today).to_i == 0 %>
+          <h3><%= t.title %></h3>
+          <p>期限:<%= t.deadline %><p>
+          <p>今日までです！頑張りましょう！<p>
+          <%= form_tag done_task_path(t), method: :post do %>
+            <%= submit_tag "完了" %>
+          <% end %>
+          <%= form_tag task_path(t), method: :delete,
+            data: { turbo_confirm: "削除しますか?" } do %>
+            <%= submit_tag "削除" %>
+          <% end %>
+
+        <% else %>
+          <h3><%= t.title %></h3>
+          <p>期限:<%= t.deadline %><p>
+          <p>期限が超過しています。優先度を上げましょう！<p>
+          <%= form_tag done_task_path(t), method: :post do %>
+            <%= submit_tag "完了" %>
+          <% end %>
+          <%= form_tag task_path(t), method: :delete,
+            data: { turbo_confirm: "削除しますか?" } do %>
+            <%= submit_tag "削除" %>
+          <% end %>
+        <% end %>
       <% end %>
+  </div>
 
-    <% elsif (t.deadline - @today).to_i == 0 %>
-      <h3><%= t.title %></h3>
-      <p>期限:<%= t.deadline %><p>
-      <p>今日までです！頑張りましょう！<p>
-      <%= form_tag done_task_path(t), method: :post do %>
-        <%= submit_tag "完了" %>
+  <div class="item"%>
+    <h1>完了</h1>
+      <% @tasks_done.each do |t| %>
+        <h3><%= t.title %></h3>
+        <p>完了日:<%= t.done_at.strftime('%Y-%m-%d') %><p>
+        <%= form_tag task_path(t), method: :delete,
+          data: { turbo_confirm: "削除しますか?" } do %>
+          <%= submit_tag "削除" %>
+        <% end %>
       <% end %>
-
-    <% else %>
-      <h3><%= t.title %></h3>
-      <p>期限:<%= t.deadline %><p>
-      <p>期限が超過しています。優先度を上げましょう！<p>
-      <%= form_tag done_task_path(t), method: :post do %>
-        <%= submit_tag "完了" %>
-      <% end %>
-    <% end %>
-  <% end %>
-
-
-<h1>完了</h1>
-  <% @tasks_done.each do |t| %>
-    <h3><%= t.title %></h3>
-    <p>完了日:<%= t.done_at.strftime('%Y-%m-%d') %><p>
-  <% end %>
-
-
+  </div>
+</div>
