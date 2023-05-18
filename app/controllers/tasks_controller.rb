@@ -10,25 +10,30 @@ class TasksController < ApplicationController
     task = Task.new(task_params)
     if task.save
       flash[:success] = '登録が成功しました'
-      redirect_to root_path
     else
       flash[:danger] = "登録に失敗しました<br>・#{task.errors.full_messages.join('<br>・')}"
-      redirect_to root_path
     end
+    redirect_to root_path
   end
 
   def done
-    @today = Date.today
-    @task = Task.find(params[:id])
-    @task.update(done_at: @today)
+    task = Task.find(params[:id])
+    if task.update(done_at: Time.zone.now)
+      flash[:success] = 'タスク完了！おめでとう！'
+    else
+      flash[:danger] = "失敗しました"
+    end
     redirect_to root_path
   end
 
   def destroy
     task = Task.find(params[:id])
-    task.destroy
-    flash[:notice] = 'タスクが削除されました'
-    redirect_to root_path
+    if task.destroy
+      flash[:info] = 'タスクが削除されました'
+    else
+      flash[:danger] = "削除に失敗しました"
+    end
+    redirect_to root_path 
   end
 
   private 
