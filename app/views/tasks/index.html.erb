@@ -6,7 +6,7 @@
   <%= f.date_field :deadline %>
 
   <%= f.label :優先度 %>
-  <%= f.select :priority, Task.priorities.keys.to_a, { include_blank: '選択してください'} %>
+  <%= f.select :priority, Task.priorities.keys.to_a %>
 
   <%= f.submit "作成" %>
 <% end %>
