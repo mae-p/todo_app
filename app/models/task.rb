@@ -1,11 +1,12 @@
 class Task < ApplicationRecord
   validates :title,  presence: true
   validates :deadline, presence: true
-  validate :deadline_before_today
+  validate :validate_deadline_is_future
     
-    
-    def deadline_before_today
-      return if deadline.blank?
-      errors.add(:deadline, "今日以降のものを選択する") if deadline < Date.today
+  private 
+    def validate_deadline_is_future
+      if deadline.present? && deadline.past?
+        errors.add(:deadline, "未来の日付を選択“てください") 
+      end
     end
 end
