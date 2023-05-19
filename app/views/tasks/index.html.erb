@@ -22,7 +22,7 @@
           <%= f.label :priority %>
         </div>
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-           <%= f.select :priority, Task.priorities_i18n.invert.to_a, class: "form-select" %>
+           <%= f.select :priority, Task.priorities_i18n.invert.to_a, {}, { class: "form-control" } %>
         </div>
       </div>
       <%= f.submit "作成", class:"btn btn-primary" %>
@@ -30,7 +30,7 @@
   </div>
 </div>
 
-<div class="container">
+<div class="container task">
   <div class="row">
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
       <h1>未完了</h1>
@@ -60,7 +60,7 @@
           <p>期限:<%= t.deadline %><p>
           <p>今日までです！頑張りましょう！<p>
           <div class="row">
-            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
               <%= form_tag done_task_path(t), method: :post do %>
                 <%= submit_tag "完了", class: "btn btn-success btn-sm" %>
               <% end %>
