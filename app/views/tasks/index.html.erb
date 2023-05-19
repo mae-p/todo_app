@@ -2,26 +2,26 @@
   <div class="row">
     <%= form_with model: @task, url: tasks_path do |f| %>
       <div class="row">
-        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+        <div class="col-xs-3 col-sm-3 col-md-2 col-lg-1">
           <%= f.label :title %>
         </div>
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+        <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
           <%= f.text_field :title, class: "form-control", placeholder: "タスク" %>
         </div>
       </div>
       <div class="row">
-        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+        <div class="col-xs-3 col-sm-3 col-md-2 col-lg-1">
           <%= f.label :deadline %>
         </div>
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+        <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
            <%= f.date_field :deadline, class: "form-control" %>
         </div>
       </div>
       <div class="row">
-        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+        <div class="col-xs-3 col-sm-3 col-md-2 col-lg-1">
           <%= f.label :priority %>
         </div>
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+        <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
            <%= f.select :priority, Task.priorities_i18n.invert.to_a, {}, { class: "form-control" } %>
         </div>
       </div>
@@ -41,12 +41,12 @@
           <p>期限:<%= t.deadline %><p>
           <p>残り:<%= (t.deadline - @today).to_i %>日<p>
            <div class="row">
-            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+            <div class="col-xs-3 col-sm-3 col-md-2 col-lg-1">
               <%= form_tag done_task_path(t), method: :post do %>
                 <%= submit_tag "完了", class: "btn btn-success btn-sm" %>
               <% end %>
             </div>
-            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+            <div class="col-xs-3 col-sm-3 col-md-2 col-lg-1">
               <%= form_tag task_path(t), method: :delete,
                     data: { turbo_confirm: "削除しますか?" } do %>
                 <%= submit_tag "削除", class: "btn btn-danger btn-sm" %>
@@ -60,12 +60,12 @@
           <p>期限:<%= t.deadline %><p>
           <p>今日までです！頑張りましょう！<p>
           <div class="row">
-            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <div class="col-xs-3 col-sm-3 col-md-2 col-lg-1">
               <%= form_tag done_task_path(t), method: :post do %>
                 <%= submit_tag "完了", class: "btn btn-success btn-sm" %>
               <% end %>
             </div>
-            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+            <div class="col-xs-3 col-sm-3 col-md-2 col-lg-1">
               <%= form_tag task_path(t), method: :delete,
                     data: { turbo_confirm: "削除しますか?" } do %>
                 <%= submit_tag "削除", class: "btn btn-danger btn-sm" %>
@@ -79,12 +79,12 @@
           <p>期限:<%= t.deadline %><p>
           <p>期限が超過しています。優先度を上げましょう！<p>
            <div class="row">
-            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+            <div class="col-xs-3 col-sm-3 col-md-2 col-lg-1">
               <%= form_tag done_task_path(t), method: :post do %>
                 <%= submit_tag "完了", class: "btn btn-success btn-sm" %>
               <% end %>
             </div>
-            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+            <div class="col-xs-3 col-sm-3 col-md-2 col-lg-1">
               <%= form_tag task_path(t), method: :delete,
                     data: { turbo_confirm: "削除しますか?" } do %>
                 <%= submit_tag "削除", class: "btn btn-danger btn-sm" %>
