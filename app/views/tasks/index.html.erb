@@ -9,8 +9,8 @@
             <u>My Todo-s</u>
           </p>
 
-          <form class="form-inline">
-            <%= form_with model: @task, url: tasks_path do |f| %>
+          <%= form_with model: @task, url: tasks_path do |f| %>
+            <div class="form-inline">
               <div class="form-group">
                 <%= f.label :title %>
                 <%= f.text_field :title, class: "form-control", placeholder: "タスク" %>
@@ -24,8 +24,9 @@
                 <%= f.select :priority, Task.priorities_i18n.invert.to_a, {}, { class: "form-control" } %>
               </div><br>
               <%= f.submit "作成", class:"btn btn-primary" %>
-            <% end %> 
-          </form>
+            </div>
+          <% end %>
+
 
           <table class="table mb-0">
             <h3>未完了</h3>
@@ -34,7 +35,7 @@
                 <th scope="col">タスク名</th>
                 <th scope="col">優先度</th>
                 <th scope="col">期限</th>
-                <th scope="col">Actions</th>
+                <th scope="col">アクション</th>
               </tr>
             </thead>
             <% @not_done_tasks.each do |t| %>
@@ -114,7 +115,7 @@
                 <th scope="col">タスク名</th>
                 <th scope="col">優先度</th>
                 <th scope="col">完了日</th>
-                <th scope="col">Actions</th>
+                <th scope="col">アクション</th>
               </tr>
             </thead>
             <% @done_tasks.each do |t| %>
