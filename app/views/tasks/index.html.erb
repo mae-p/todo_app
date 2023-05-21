@@ -1,148 +1,145 @@
-<section class="vh-100" style="background-color: #eee;">
-  <div class="container py-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="card rounded-3">
-        <div class="card-body p-4">
+<div class="container">
+  <div class="my-4 p-4 bg-light">
 
-          <p class="h1 mt-3 mb-4 pb-3 text-primary">
-            <i class="fas fa-check-square me-1"></i>
-            <u>My Todo-s</u>
-          </p>
+      <h3>Todoリスト</h3>
 
-          <%= form_with model: @task, url: tasks_path do |f| %>
-            <div class="form-inline">
-              <div class="form-group">
-                <%= f.label :title %>
-                <%= f.text_field :title, class: "form-control", placeholder: "タスク" %>
-              </div>
-              <div class="form-group">
-                <%= f.label :deadline %>
-                <%= f.date_field :deadline, class: "form-control" %>
-              </div>
-              <div class="form-group">
-                <%= f.label :priority %>
-                <%= f.select :priority, Task.priorities_i18n.invert.to_a, {}, { class: "form-control" } %>
-              </div><br>
-              <%= f.submit "作成", class:"btn btn-primary" %>
-            </div>
-          <% end %>
+      <%= form_with model: @task, url: tasks_path do |f| %>
+        <div class="mt-2 mb-4">
+          <div class="form-group w-50">
+            <%= f.label :title %>
+            <%= f.text_field :title, class: "form-control", placeholder: "タスク" %>
+          </div>
+          <div class="form-group w-50">
+            <%= f.label :deadline %>
+            <%= f.date_field :deadline, class: "form-control" %>
+          </div>
+          <div class="form-group w-50">
+            <%= f.label :priority %>
+            <%= f.select :priority, Task.priorities_i18n.invert.to_a, {}, { class: "form-control" } %>
+          </div>
+          <%= f.submit "作成", class:"btn btn-primary mt-2" %>
+        </div>
+      <% end %>
 
-
-          <table class="table mb-0">
-            <h3>未完了</h3>
-            <thead>
+    <div class="card mb-3">
+      <div class="card-body">
+        <table class="table">
+          <h4>未完了</h4>
+          <thead>
+            <tr>
+              <th>タスク</th>
+              <th class="w-25">優先度</th>
+              <th>期限</th>
+              <th></th>
+            </tr>
+          </thead>
+          <% @not_done_tasks.each do |t| %>
+            <tbody>
               <tr>
-                <th scope="col">タスク名</th>
-                <th scope="col">優先度</th>
-                <th scope="col">期限</th>
-                <th scope="col">アクション</th>
-              </tr>
-            </thead>
-            <% @not_done_tasks.each do |t| %>
-              <tbody>
-                <tr class="fw-normal">
-                  <% if (t.deadline - @today).to_i > 0 %>
-                    <td class="align-middle">
-                      <span><%= t.title %></span>
-                    </td>
-                    <td class="align-middle">
-                      <h6 class="mb-0"><span><%= t.priority_i18n %></span></h6>
-                    </td>
-                    <td class="align-middle">
-                      <%= t.deadline %>
-                      <p>残り:<%= (t.deadline - @today).to_i %>日</p>
-                    </td>
-                    <td class="align-middle">
-                      <%= form_tag done_task_path(t), method: :post do %>
-                        <%= submit_tag "完了", class: "btn btn-success btn-sm" %>
-                      <% end %>
-                      <%= form_tag task_path(t), method: :delete,
-                            data: { turbo_confirm: "削除しますか?" } do %>
-                        <%= submit_tag "削除", class: "btn btn-danger btn-sm" %>
-                      <% end %>
-                    </td>
-                  <% elsif (t.deadline - @today).to_i == 0 %>
-                    <td class="align-middle">
-                      <span><%= t.title %></span>
-                    </td>
-                    <td class="align-middle">
-                      <h6 class="mb-0"><span><%= t.priority_i18n %></span></h6>
-                    </td>
-                    <td class="align-middle">
-                      <%= t.deadline %>
-                      <p>今日までです！頑張りましょう！</p>
-                    </td>
-                    <td class="align-middle">
-                      <%= form_tag done_task_path(t), method: :post do %>
-                        <%= submit_tag "完了", class: "btn btn-success btn-sm" %>
-                      <% end %>
-                      <%= form_tag task_path(t), method: :delete,
-                            data: { turbo_confirm: "削除しますか?" } do %>
-                        <%= submit_tag "削除", class: "btn btn-danger btn-sm" %>
-                      <% end %>
-                    </td>
-                  <% else %>
-                    <td class="align-middle">
-                      <span><%= t.title %></span>
-                    </td>
-                    <td class="align-middle">
-                      <h6 class="mb-0"><span><%= t.priority_i18n %></span></h6>
-                    </td>
-                    <td class="align-middle"> 
-                      <%= t.deadline %>
-                      <p>期限が超過しています。優先度を上げましょう！</p>
-                    </td>
-                    <td class="align-middle">
-                      <%= form_tag done_task_path(t), method: :post do %>
-                        <%= submit_tag "完了", class: "btn btn-success btn-sm" %>
-                      <% end %>
-                      <%= form_tag task_path(t), method: :delete,
-                            data: { turbo_confirm: "削除しますか?" } do %>
-                        <%= submit_tag "削除", class: "btn btn-danger btn-sm" %>
-                      <% end %>
-                    </td>
-                  <% end %>
-                </tr>
-              </tbody>
-            <% end %>
-          </table>
-
-          
-          <table class="table mb-0">
-            <h3>完了</h3>
-            <thead>
-              <tr>
-                <th scope="col">タスク名</th>
-                <th scope="col">優先度</th>
-                <th scope="col">完了日</th>
-                <th scope="col">アクション</th>
-              </tr>
-            </thead>
-            <% @done_tasks.each do |t| %>
-              <tbody>
-                <tr class="fw-normal">
-                  <td class="align-middle">
-                    <span><%= t.title %></span>
+                <% if (t.deadline - @today).to_i > 0 %>
+                  <td>
+                    <%= t.title %>
                   </td>
-                  <td class="align-middle">
-                    <h6 class="mb-0"><span><%= t.priority_i18n %></span></h6>
+                  <td>
+                    <%= t.priority_i18n %>
                   </td>
-                  <td class="align-middle">
-                    <%= t.done_at.strftime('%Y-%m-%d') %>
+                  <td>
+                    <%= t.deadline %>
+                    <p>残り:<%= (t.deadline - @today).to_i %>日</p>
                   </td>
-                  <td class="align-middle">
+                  <td>
+                    <%= form_tag done_task_path(t), method: :post do %>
+                      <%= submit_tag "完了", class: "btn btn-success btn-sm mb-1" %>
+                    <% end %>
                     <%= form_tag task_path(t), method: :delete,
                           data: { turbo_confirm: "削除しますか?" } do %>
                       <%= submit_tag "削除", class: "btn btn-danger btn-sm" %>
                     <% end %>
                   </td>
-                </tr>
-              </tbody>
-            <% end %>
-          </table>
-
-        </div>
+                <% elsif (t.deadline - @today).to_i == 0 %>
+                  <td>
+                    <%= t.title %>
+                  </td>
+                  <td>
+                    <%= t.priority_i18n %>
+                  </td>
+                  <td>
+                    <%= t.deadline %>
+                    <p>今日までです！頑張りましょう！</p>
+                  </td>
+                  <td>
+                    <%= form_tag done_task_path(t), method: :post do %>
+                      <%= submit_tag "完了", class: "btn btn-success btn-sm mb-1" %>
+                    <% end %>
+                    <%= form_tag task_path(t), method: :delete,
+                          data: { turbo_confirm: "削除しますか?" } do %>
+                      <%= submit_tag "削除", class: "btn btn-danger btn-sm" %>
+                    <% end %>
+                  </td>
+                <% else %>
+                  <td>
+                    <%= t.title %>
+                  </td>
+                  <td>
+                    <%= t.priority_i18n %>
+                  </td>
+                  <td> 
+                    <%= t.deadline %>
+                    <p>期限が超過しています。優先度を上げましょう！</p>
+                  </td>
+                  <td>
+                    <%= form_tag done_task_path(t), method: :post do %>
+                      <%= submit_tag "完了", class: "btn btn-success btn-sm mb-1" %>
+                    <% end %>
+                    <%= form_tag task_path(t), method: :delete,
+                          data: { turbo_confirm: "削除しますか?" } do %>
+                      <%= submit_tag "削除", class: "btn btn-danger btn-sm" %>
+                    <% end %>
+                  </td>
+                <% end %>
+              </tr>
+            </tbody>
+          <% end %>
+        </table>
       </div>
     </div>
+
+    <div class="card mb-3">
+      <div class="card-body">
+        <table class="table">
+          <h4>完了</h4>
+          <thead>
+            <tr>
+              <th>タスク</th>
+              <th class="w-25">優先度</th>
+              <th>完了日</th>
+              <th></th>
+            </tr>
+          </thead>
+          <% @done_tasks.each do |t| %>
+            <tbody>
+              <tr>
+                <td>
+                  <%= t.title %>
+                </td>
+                <td>
+                  <%= t.priority_i18n %>
+                </td>
+                <td>
+                  <%= t.done_at.strftime('%Y-%m-%d') %>
+                </td>
+                <td>
+                  <%= form_tag task_path(t), method: :delete,
+                        data: { turbo_confirm: "削除しますか?" } do %>
+                    <%= submit_tag "削除", class: "btn btn-danger btn-sm" %>
+                  <% end %>
+                </td>
+              </tr>
+            </tbody>
+          <% end %>
+        </table>
+      </div>
+    </div>
+
   </div>
-</section>
+</div>
