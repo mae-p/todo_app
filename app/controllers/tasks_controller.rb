@@ -3,7 +3,6 @@ class TasksController < ApplicationController
     @task = Task.new
     @not_done_tasks = Task.where(done_at: nil).order(:priority)
     @done_tasks = Task.where.not(done_at: nil).order(:priority)
-    @today = Date.today
   end
 
   def create
