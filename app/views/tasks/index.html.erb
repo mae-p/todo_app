@@ -1,25 +1,25 @@
 <div class="container">
   <div class="my-4 p-4 bg-light">
 
-      <h3>Todoリスト</h3>
+    <h3>Todoリスト</h3>
 
-      <%= form_with model: @task, url: tasks_path do |f| %>
-        <div class="mt-2 mb-4">
-          <div class="form-group w-50">
-            <%= f.label :title %>
-            <%= f.text_field :title, class: "form-control", placeholder: "タスク" %>
-          </div>
-          <div class="form-group w-50">
-            <%= f.label :deadline %>
-            <%= f.date_field :deadline, class: "form-control" %>
-          </div>
-          <div class="form-group w-50">
-            <%= f.label :priority %>
-            <%= f.select :priority, Task.priorities_i18n.invert.to_a, {}, { class: "form-control" } %>
-          </div>
-          <%= f.submit "作成", class:"btn btn-primary mt-2" %>
+    <%= form_with model: @task, url: tasks_path do |f| %>
+      <div class="mt-2 mb-4">
+        <div class="form-group w-50">
+          <%= f.label :title %>
+          <%= f.text_field :title, class: "form-control", placeholder: "タスク" %>
         </div>
-      <% end %>
+        <div class="form-group w-50">
+          <%= f.label :deadline %>
+          <%= f.date_field :deadline, class: "form-control" %>
+        </div>
+        <div class="form-group w-50">
+          <%= f.label :priority %>
+          <%= f.select :priority, Task.priorities_i18n.invert.to_a, {}, { class: "form-control" } %>
+        </div>
+        <%= f.submit "作成", class:"btn btn-primary mt-2" %>
+      </div>
+    <% end %>
 
     <div class="card mb-3">
       <div class="card-body">
