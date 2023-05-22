@@ -36,7 +36,7 @@
           <% @not_done_tasks.each do |t| %>
             <tbody>
               <tr>
-                <% if (t.deadline - @today).to_i > 0 %>
+                <% if t.deadline > Time.zone.today %>
                   <td>
                     <%= t.title %>
                   </td>
@@ -45,7 +45,7 @@
                   </td>
                   <td>
                     <%= t.deadline %>
-                    <p>残り:<%= (t.deadline - @today).to_i %>日</p>
+                    <p>残り:<%= t.remaining_days %>日</p>
                   </td>
                   <td>
                     <%= form_tag done_task_path(t), method: :post do %>
@@ -56,7 +56,7 @@
                       <%= submit_tag "削除", class: "btn btn-danger btn-sm" %>
                     <% end %>
                   </td>
-                <% elsif (t.deadline - @today).to_i == 0 %>
+                <% elsif t.deadline.today? %>
                   <td>
                     <%= t.title %>
                   </td>
