@@ -19,7 +19,7 @@
           <h3><%= t.title %></h3>
           <p>優先度:<%= t.priority_i18n %><p>
           <p>期限:<%= t.deadline %><p>
-          <p>残り:<%= (t.deadline - Time.zone.today).to_i %>日<p>
+          <p>残り:<%= t.remaining_days %>日<p>
           <%= form_tag done_task_path(t), method: :post do %>
             <%= submit_tag "完了" %>
           <% end %>
