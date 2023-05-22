@@ -15,11 +15,11 @@
   <div class="item"%>
     <h1>未完了</h1>
       <% @not_done_tasks.each do |t| %>
-        <% if (t.deadline - @today).to_i > 0 %>
+        <% if t.deadline > Time.zone.now %>
           <h3><%= t.title %></h3>
           <p>優先度:<%= t.priority_i18n %><p>
           <p>期限:<%= t.deadline %><p>
-          <p>残り:<%= (t.deadline - @today).to_i %>日<p>
+          <p>残り:<%= (t.deadline - Time.zone.today).to_i %>日<p>
           <%= form_tag done_task_path(t), method: :post do %>
             <%= submit_tag "完了" %>
           <% end %>
@@ -28,7 +28,7 @@
             <%= submit_tag "削除" %>
           <% end %>
 
-        <% elsif (t.deadline - @today).to_i == 0 %>
+        <% elsif t.deadline.today? %>
           <h3><%= t.title %></h3>
           <p>優先度:<%= t.priority_i18n %><p>
           <p>期限:<%= t.deadline %><p>
