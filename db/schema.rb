@@ -19,3 +19,4 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_18_061050) do
     t.datetime "done_at"
     t.integer "priority", default: 0, null: false
   end
+end
