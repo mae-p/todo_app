@@ -6,7 +6,7 @@ class Task < ApplicationRecord
   validate :validate_deadline_is_future
 
   def remaining_days
-    self.deadline.day - Time.zone.now.day
+    (self.deadline - Time.zone.today).to_i
   end
 
   private 
