@@ -13,7 +13,8 @@ gem "stimulus-rails",  "1.0.4"
 gem "jbuilder",        "2.11.5"
 gem "puma",            "5.6.4"
 gem "bootsnap",        "1.12.0", require: false
-gem "sqlite3", "1.4.2"
+# gem "pg"
+# gem "sqlite3", "1.4.2"
 
 group :development, :test do
   gem "debug",   "1.5.0", platforms: %i[ mri mingw x64_mingw ]
@@ -37,10 +38,6 @@ end
 group :development, :test do
   gem "pry-rails"
 end
-
-# group :production do
-#   gem "pg"
-# end
 
 # Windows ではタイムゾーン情報用の tzinfo-data gem を含める必要があります
 # gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
