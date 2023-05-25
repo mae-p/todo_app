@@ -16,6 +16,7 @@ production:
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   database: todo_app_productioin
+  url: <%= ENV['CLEARDB_DATABASE_URL']&.sub(/\Amysql/, 'mysql2') %>
   username: root
   password:
-  host: mysql://b3f9c7b14062b6:03d84cd1@us-cdbr-east-06.cleardb.net/heroku_92148b4b0649e52?reconnect=true
+  host: localhost
