@@ -18,4 +18,4 @@ production:
   database: todo_app_productioin
   username: root
   password:
-  host: localhost
+  host: mysql://b3f9c7b14062b6:03d84cd1@us-cdbr-east-06.cleardb.net/heroku_92148b4b0649e52?reconnect=true
